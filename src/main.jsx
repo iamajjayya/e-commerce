@@ -14,6 +14,7 @@ import '././assets/css/icofont.min.css';
 import '././assets/css/animate.css';
 import '././assets/css/style.min.css';
 import Home from './Home/Home.jsx';
+import Shop from "./Shop/Shop.jsx"
 
 import {
   createBrowserRouter,
@@ -33,7 +34,12 @@ const router = createBrowserRouter([
       {
         path:"/blog",
         element: <Blog />
-      }
+      },
+      {
+        path:"/shop",
+        element: <Shop />
+     },
+    
     ]
   },
 ]);
