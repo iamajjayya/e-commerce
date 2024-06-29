@@ -1,8 +1,12 @@
+import Header from "../Components/Header"
 
 
 const Blog = () => {
   return (
-    <div>Blog</div>
+    <div>
+    <Header  title="Blog Page" curPage="Blogs" />
+
+    </div>
   )
 }
 
