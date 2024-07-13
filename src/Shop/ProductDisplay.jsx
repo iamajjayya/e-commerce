@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const desc =
   "Transform your daily routine with our innovative solution, offering unparalleled convenience and efficiency";
 
 const ProductDisplay = ({ item }) => {
-  const { name, id, price, seller, ratingsCount, quantity } = item;
+  const { name, id, price, seller, ratingsCount, quantity, img } = item;
   const [preQuantity, setQuantity] = useState(quantity);
   const [coupen, setCoupen] = useState("");
   const [size, setSize] = useState(" Select size");
@@ -29,6 +30,45 @@ const handleIncerse = () => {
      setQuantity(preQuantity + 1)
    
 }
+
+
+const handleSubmit = (e) => 
+{
+   e.preventDefault();
+   const product = {
+    id:id,
+    img:img,
+    name: name,
+    price:price,
+    quantity: preQuantity,
+    size:size,
+    color:color,
+    coupen:coupen
+   }
+
+  //  console.log(product)
+
+  const exitingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const exitingProduct  = exitingCart.findIndex((item) => item.id === id);
+  
+  if ( exitingProduct !== -1) {
+     exitingCart[exitingProduct].quantity +=  preQuantity;
+  }  else {
+    exitingCart.push(product);
+  }
+
+  localStorage.setItem("cart",JSON.stringify(exitingCart))
+  setQuantity(1);
+  setSize("Select Size");
+  setColer("Select Color");
+  setCoupen("");
+
+}
+
+
+
+
+
   return (
     <div>
       <div>
@@ -47,7 +87,7 @@ const handleIncerse = () => {
       </div>
       {/* cart componets  */}
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="select-product size">
             <select value={size} onChange={handleSizechange}>
               <option> Select Size</option>
@@ -80,7 +120,17 @@ const handleIncerse = () => {
           </div>
 
           {/* coupen filed  */}
+          <div className="discount-code mb-2">
+               <input type="text" placeholder="Enter Discount Code" onChange={(e) =>  setCoupen(e.target.value)} />
+          </div>
+
+            {/* Button section */}
+            <button  type="submit" className="lab-btn"> <span>Add  to Cart </span>  </button>
+            <Link to="/cart-page" className="lab-btn bg-primary"> <span>Check  out </span>  </Link>
+
         </form>
+
+        
       </div>
     </div>
   );
