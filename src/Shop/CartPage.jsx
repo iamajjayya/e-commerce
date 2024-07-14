@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
-import delImgUrl from "../assets/images/shop/del.png"
+import delImgUrl from "../assets/images/shop/del.png";
+import CheckoutPage from "./CheckoutPage";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -110,7 +111,10 @@ const CartPage = () => {
                         Rs {calculateTotalPrice(item)}
                       </td>
                       <td className="cat-edit">
-                             <a href="#" onClick={ () =>  handleremoveItem(item)}> <img src={delImgUrl} /></a>
+                        <a href="#" onClick={() => handleremoveItem(item)}>
+                          {" "}
+                          <img src={delImgUrl} />
+                        </a>
                       </td>
                     </tr>
                   ))}
@@ -118,8 +122,85 @@ const CartPage = () => {
               </table>
             </div>
             {/* cart bottom  */}
-            <div>
-            
+            <div className="cart-bottom">
+              <div className="cart-checkout-box">
+                <form className="coupon">
+                  <input
+                    className="cart-page-input-text"
+                    type="text"
+                    name="coupon"
+                    id="coupon"
+                    placeholder="Coupen code .."
+                  />
+                  <input type="submit" value="Apply Coupen" />
+                </form>
+                <form className="cart-checkout">
+                  <input type="submit" value="Update Cart" />
+                  <div>
+                    <CheckoutPage />
+                  </div>
+                </form>
+              </div>
+              {/* Checkout box end  */}
+              {/*  shopping box */}
+              <div className="shiping-box">
+                <div className="row">
+                  <div className="col-md-6 col-12">
+                    <div className="calculate-shiping">
+                      <h3>Calculate Shiping</h3>
+                      <div className="outline-select">
+                        <select>
+                          <option value="india">India</option>
+                          <option value="usa">Usa</option>
+                          <option value="uk">UK</option>
+                          <option value="england">England</option>
+                        </select>
+                        <span className="select-icon">
+                          <i className="icofont-rounded-down"></i>
+                        </span>
+
+                        <div className="outline -select shipping select">
+                          <select>
+                            <option value="india">Delhi</option>
+                            <option value="usa">New York</option>
+                            <option value="uk">Paris</option>
+                            <option value="england">England</option>
+                          </select>
+                          <span className="select-icon">
+                          <i className="icofont-rounded-down"></i>
+                        </span>
+                        </div>
+                        <input type="text" name="postalCode" id="postalCode" className="cart-page-input-text"  placeholder="Post Code / ZIP *" />
+                       <div> <button type="submit">Update Address</button> </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-md-6 col-12">
+                    <div className="cart-overview">
+                          <h3>Cart Totals </h3>
+                          <ul className="lab-ul">
+                               <li>
+                                <span className="pull-left"> Cart SubTotal </span>
+                                 <p className="pull-right"> Rs {cartSubTotal}</p>
+
+                               </li>
+                               <li>
+                                <span className="pull-left"> Shiping and Handling </span>
+                                 <p className="pull-right"> Free Shiping  </p>
+
+                               </li>
+                               <li>
+                                <span className="pull-left"> Order Total </span>
+                                 <p className="pull-right"> Rs  {ordertotal.toFixed(2)} </p>
+
+                               </li>
+
+                          </ul>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
