@@ -5,6 +5,9 @@ const Blog = () => {
   return (
     <div>
     <Header  title="Blog Page" curPage="Blogs" />
+    <div>
+      
+    </div>
 
     </div>
   )
