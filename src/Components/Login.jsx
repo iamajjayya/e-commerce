@@ -16,7 +16,7 @@ const socialList = [
 
 const Login = () => {
 const [errorMessage, setErrorMessage] = useState(" ")
-const {signInWithGmail , login} =  useContext(AuthContext);
+const {signInWithGmail, login} =  useContext(AuthContext);
 
 const  location = useLocation();
 
@@ -26,7 +26,40 @@ const from  =  location.state?.from?.pathname || "/"
 
 const handlelogin = (e) => {
 
+ e.preventDefault();
 
+ const  form = e.target;
+//  console.log(form)
+ const email = form.email.value;
+//  console.log(email)
+const password = form.password.value;
+// console.log(email,password)
+login(email,password).then((result) => {
+  const user = result.user;
+  alert("Login Successfull")
+  navigate(from,{replace : true})
+}) .catch((err) => {
+    const errorMessage = err.message;
+    setErrorMessage("Please Provided valid email and Password");
+})
+
+
+}
+
+
+const handleRegister = () => {
+  signInWithGmail
+  ()
+  .then((result) => {
+    const user = result.user;
+    navigate(from , {replace:true})
+
+  }) .catch((err) => {
+       const errorMessage = err.message;
+       setErrorMessage("Please Provided valid email and Password");
+  })
+
+    
 
 }
 
@@ -42,6 +75,16 @@ const handlelogin = (e) => {
                                </div>
                                <div className="form-group">
                                    <input type="password"  name="password" id="password" placeholder="Password * "  required />
+                               </div>
+                               {/* showing message */}
+                               <div>
+                                {
+                                    errorMessage  && (
+                                        <div className="error-message text-danger">
+                                             {errorMessage}
+                                         </div>
+                                     )
+                                }
                                </div>
                                <div className="form-group">
                                    <div className="d-flex justify-content-between flex-wrap pt-sm-2"> 
@@ -72,7 +115,7 @@ const handlelogin = (e) => {
                                  <h5 className="subtitle">{socilTitle}</h5>
                                  <ul className="lab-ul social-icons justify-content-center">
                                     <li>
-                                    <a href="/" className="github" ><i className="icofont-github"></i></a>
+                                    <button href="/" className="github"  onClick={handleRegister}><i className="icofont-github"></i></button>
                                     </li>
                                     <li>
                                     <a href="/" className="facebook"><i className="icofont-facebook"></i></a>
