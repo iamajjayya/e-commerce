@@ -8,14 +8,37 @@ const btnText = "SignUp Now";
 
 const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const { signInWithGmail, login } = useContext(AuthContext);
+  const { signInWithGmail, createUser } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/"; // Adjust this based on your routing setup
+  const from = location.state?.from?.pathname || "/"; 
 
   const handleSignup = (e) => {
     e.preventDefault();
-    // Handle signup logic here
+    const  form =  e.target;
+    const name = form.name.value
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmpassword = form.confirmpassword.value;
+    // console.log(form);
+    if ( password !==  confirmpassword){
+         setErrorMessage("Password must be")
+    } else  {
+        setErrorMessage("")
+        createUser(email,password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert(" Account Creted Succesfully")
+            navigate(from ,{replace:true})
+        }) .catch ((err) => {
+            console.log(err.message)
+            alert(`${err.message}`)
+
+        })
+
+    }
+
+    
   };
 
   const handleRegister = () => {

@@ -16,7 +16,7 @@ const socialList = [
 
 const Login = () => {
 const [errorMessage, setErrorMessage] = useState(" ")
-const {signInWithGmail, login} =  useContext(AuthContext);
+const {signInWithGmail,login} =  useContext(AuthContext);
 
 const  location = useLocation();
 
